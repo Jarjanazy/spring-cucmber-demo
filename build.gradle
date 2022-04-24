@@ -30,8 +30,6 @@ dependencies {
 	testImplementation 'io.cucumber:cucumber-junit:7.3.2'
 	testImplementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
 	implementation 'io.cucumber:cucumber-spring:7.3.2'
-	testImplementation 'io.rest-assured:rest-assured:4.2.0'
-
 }
 
 tasks.named('test') {
