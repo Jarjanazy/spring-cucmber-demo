@@ -7,8 +7,9 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources")
+@CucumberOptions(plugin = {"pretty"}, features = "src/test/resources")
 @CucumberContextConfiguration
-@SpringBootTest
-public class CucumberIntegrationTest{
+@SpringBootTest(classes = SpringCucumberDemoApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class CucumberIntegrationTest {
+    // entry point of our tests
 }
