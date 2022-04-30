@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Log4j2
 public class StepDefinition {
@@ -28,7 +29,7 @@ public class StepDefinition {
     }
 
     @Given("I add a cat:")
-    public void haveCat(DataTable table){
+    public void addCat(DataTable table){
 
         String catName = table.asMap().get("name");
 
@@ -39,15 +40,30 @@ public class StepDefinition {
 
     }
 
+    @Given("I have a cat:")
+    public void haveCat(DataTable dataTable) {
+        String name = dataTable.asMap().get("name");
+        catService.addCat(name);
+    }
     @When("I ask for {word}")
     public void askForCat(String name) {
         response = new RestTemplate()
                 .getForEntity(format("http://localhost:%s/cat/%s", port, name), Cat.class);
     }
 
+    @When("I delete {word}")
+    public void deleteCat(String name) {
+        catService.deleteByName(name);
+    }
+
     @Then("I get {word}")
     public void getCat(String name){
         Cat cat = response.getBody();
         assertThat(cat.getName()).isEqualTo(name);
+    }
+
+    @Then("{word} is removed from the database")
+    public void verifyCatDeletion(String name) {
+        assertFalse(catService.findByName(name).isPresent());
     }
 }

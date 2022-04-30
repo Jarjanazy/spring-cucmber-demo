@@ -5,4 +5,5 @@ import java.util.Optional;
 
 public interface CatRepo extends CrudRepository<Cat, Long> {
     Optional<Cat> findByName(String name);
+    void deleteByName(String name);
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CatService {
     private final CatRepo catRepo;
 
@@ -18,4 +19,7 @@ public class CatService {
         return catRepo.save(new Cat(name));
     }
 
+    public void deleteByName(String name) {
+        catRepo.deleteByName(name);
+    }
 }
